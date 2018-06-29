@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}">
+
+<div layout:fragment="page_content" id="page_content">
+
+    <a class="button" href="/cadastrarChamado">Adicionar</a>
+
+    <br/>
+    <br/>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Funcionario</th>
+            <th scope="col">Horario</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Ação</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="chamado : ${chamados}">
+            <td><a th:href="${(#mvc.url('CC#detalhesChamado').arg(0, chamado.id).build())}"><span
+                    th:text="${chamado.id}"></span></a></td>
+            <td><span th:text="${chamado.cliente.razaoSocial}"></span></td>
+            <td><span th:text="${chamado.funcionario.getNome()}"></span></td>
+            <td><span th:text="${chamado.dataRegistro}"></span></td>
+            <td><span th:text="${chamado.observacao}"></span></td>
+            <td>
+                <div class="btn-group" role="group">
+                    <a class="btn btn-primary" th:target="_blank"
+                       th:href="${(#mvc.url('CC#imprimirChamado').arg(0, chamado.id).build())}">
+                        Imprimir
+                    </a>
+                    <a class="btn btn-danger"
+                       th:href="${(#mvc.url('CC#deletarChamado').arg(0, chamado.id).build())}">
+                        Apagar
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
+</html>

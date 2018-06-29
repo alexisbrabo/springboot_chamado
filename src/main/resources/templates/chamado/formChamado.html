@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}">
+
+<div layout:fragment="page_content" id="page_content">
+
+    <th:block th:include="mensagemValidacao"></th:block>
+
+    <form method="post" id="formChamado">
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="funcionario">Funcionario</label>
+                </div>
+                <select form="formChamado" id="funcionario" class="form-control" name="funcionarioId">
+                    <option th:each="f : ${funcionarios}"
+                            th:value="${f.id}"
+                            th:utext="${f.nome}"></option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="cliente">Cliente</label>
+                </div>
+                <select class="form-control" id="cliente"  name="clienteId">
+                   <option th:each="c : ${clientes}"
+                            th:value="${c.id}"
+                            th:utext="${c.razaoSocial}">
+                    </option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="tipo">Tipo</label>
+                </div>
+                <select class="custom-select" id="tipo" name="tipo">
+                    <option value="S">Serviço</option>
+                    <option value="I">Instalação</option>
+                    <option value="F">Formatação</option>
+                    <option value="P">Problema</option>
+                    <option value="O">Outros</option>
+                </select>
+            </div>
+            <label for="observacao">Observação:</label>
+            <input type="text" required class="form-control" id="observacao" value="" name="observacao">
+            <br/>
+            <button class="btn btn-primary" type="submit">Salvar</button>
+        </div>
+    </form>
+
+</div>
+</html>
